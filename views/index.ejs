@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo App</title>
+</head>
+<body>
+    <h1>Todo List</h1>
+
+    <!-- List Button -->
+    <form action="/" method="get" style="margin-bottom: 20px;">
+        <button type="submit">List Todos</button>
+    </form>
+
+    <!-- Todo Form for Adding New Task -->
+    <form action="/todo" method="post">
+        <input type="text" name="task" placeholder="Add new task">
+        <button type="submit">Add</button>
+    </form>
+
+    <!-- Display Todos -->
+    <ul>
+        <% todos.forEach(function(todo) { %>
+            <li>
+                <%= todo.task %> - <%= todo.status %>
+                <!-- Complete Button -->
+                <form action="/todo/complete/<%= todo.id %>" method="post" style="display: inline;">
+                    <button type="submit">Complete</button>
+                </form>
+                <!-- Update Button -->
+                <form onsubmit="redirectToUpdate(<%= todo.id %>); return false;" style="display: inline;">
+                    <button type="submit">Update</button>
+                </form>                
+                <!-- <a href="/todo/update/<%= todo.id %>">Update</a> -->
+                
+                <!-- Delete Button -->
+                <form action="/todo/delete/<%= todo.id %>" method="post" style="display: inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+    <script>
+        function redirectToUpdate(id) {
+            window.location.href = `/todo/update/${id}`;
+        }
+    </script>
+    
+</body>
+</html>
